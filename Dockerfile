@@ -1,7 +1,10 @@
 FROM node:8.11.4-jessie
 
+COPY package.json .
+COPY yarn.lock .
 
-RUN npm install
+RUN yarn install
 
+COPY . .
 
-CMD java -jar /app/doom-client.jar
+CMD yarn serve
