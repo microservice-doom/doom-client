@@ -1,6 +1,3 @@
-target
-*.iml
-.idea
 .DS_Store
 node_modules
 /dist
@@ -22,3 +19,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+*.psd
