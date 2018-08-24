@@ -1,6 +1,7 @@
-FROM openjdk:10.0.1-10-jre
+FROM node:8.11.4-jessie
 
-WORKDIR /app
-COPY target/doom-client.jar /app
+
+RUN npm install
+
 
 CMD java -jar /app/doom-client.jar
