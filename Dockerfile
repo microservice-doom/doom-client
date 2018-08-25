@@ -7,4 +7,6 @@ RUN yarn install
 
 COPY . .
 
-CMD yarn serve
+RUN yarn build
+
+CMD yarn start
