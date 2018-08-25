@@ -39,35 +39,37 @@
         },
         methods: {
 
-            killDemon(demonId) {
+            killDemon: function(demonId) {
                 if (this.player.shotgunAmmo > 0) {
-                    axios.post(this.$engineUrl + "/shootDemon", {
+                    axios.post("/shootDemon", {
                         demonId: demonId,
                         weapon: 'shotgun'
-                    }).then(() => {
-                        axios.get(this.$stateUrl + "/state").then(response => {
-                            const data = response.data
-                            this.player = data.player
-                            this.demons = data.demons
-                        })
                     })
-                        .catch((error) => {
-                            console.error(error)
-                        })
-
+                    .then(() => {
+                        console.log("shot demon: " + demonId)
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
                 } else {
                     alert("Mission Failed!")
                 }
+            },
 
+            loadData: function() {
+                axios.get("/state").then(response => {
+                    const data = response.data
+                    this.player = data.player
+                    this.demons = data.demons
+                })
             }
-            // }
         },
         mounted() {
-            axios.get(this.$stateUrl + "/state").then(response => {
-                const data = response.data
-                this.player = data.player
-                this.demons = data.demons
-            })
+            this.loadData();
+
+            setInterval(function () {
+              this.loadData();
+            }.bind(this), 1000);
         }
 
     }

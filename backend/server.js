@@ -1,18 +1,41 @@
 var express = require('express')
+var request = require('request')
+var bodyParser = require('body-parser');
 var app = express()
-var fs = require('fs')
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', "*");
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
     next();
-});
-
-app.get('/configuration', (req, res) => {
-  res.send({
-    stateUrl: process.env.DOOM_STATE_SERVICE_URL,
-    engineUrl: process.env.DOOM_ENGINE_SERVICE_URL
-  })
 })
+
+app.get('/configuration', (req, resp) => {
+    resp.send({})
+})
+
+app.get('/state', (req, res) => {
+    request(process.env.DOOM_STATE_SERVICE_URL + "/state", { json: true }, (err, r, body) => {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.send(body)
+      }
+    });
+})
+
+app.post('/shootDemon', (req, res) => {
+    console.log(req.body)
+    request.post(process.env.DOOM_ENGINE_SERVICE_URL + "/shootDemon", { json: true, body: req.body }, (err, r, body) => {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.send(body)
+      }
+    });
+});
 
 app.use('/', express.static('dist'))
  
