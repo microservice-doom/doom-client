@@ -38,13 +38,14 @@
             Demon
         },
         methods: {
+
             killDemon(demonId) {
                 if (this.player.shotgunAmmo > 0) {
-                    axios.post('http://localhost:8083/shootDemon', {
+                    axios.post(this.$engineUrl + "/shootDemon", {
                         demonId: demonId,
                         weapon: 'shotgun'
                     }).then(() => {
-                        axios.get('http://localhost:8081/state').then(response => {
+                        axios.get(this.$stateUrl + "/state").then(response => {
                             const data = response.data
                             this.player = data.player
                             this.demons = data.demons
@@ -55,14 +56,14 @@
                         })
 
                 } else {
-           alert("Mission Failed!")
+                    alert("Mission Failed!")
                 }
 
             }
             // }
         },
         mounted() {
-            axios.get('http://localhost:8081/state').then(response => {
+            axios.get(this.$stateUrl + "/state").then(response => {
                 const data = response.data
                 this.player = data.player
                 this.demons = data.demons
