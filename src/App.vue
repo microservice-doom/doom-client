@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-    <p>TEST</p>
         <div class="play">
             <h2 ref="failed" id="failed"></h2>
             <div class="demons">
