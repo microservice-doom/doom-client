@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+    <p>TEST</p>
         <div class="play">
             <h2 ref="failed" id="failed"></h2>
             <div class="demons">
@@ -41,7 +42,7 @@
 
             killDemon: function(demonId) {
                 if (this.player.shotgunAmmo > 0) {
-                    axios.post("/shootDemon", {
+                    axios.post("/api/shootDemon", {
                         demonId: demonId,
                         weapon: 'shotgun'
                     })
@@ -57,7 +58,7 @@
             },
 
             loadData: function() {
-                axios.get("/state").then(response => {
+                axios.get("/api/state").then(response => {
                     const data = response.data
                     this.player = data.player
                     this.demons = data.demons

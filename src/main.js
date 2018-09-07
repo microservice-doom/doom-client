@@ -4,13 +4,9 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 
-axios.get('/configuration').then(response => {
-
-    new Vue({
-      render: h => h(App)
-    }).$mount('#app')
-
-});
+new Vue({
+  render: h => h(App)
+}).$mount('#app')
 
 
 

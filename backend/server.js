@@ -12,11 +12,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.get('/configuration', (req, resp) => {
-    resp.send({})
-})
-
-app.get('/state', (req, res) => {
+app.get('/api/state', (req, res) => {
     request(process.env.DOOM_STATE_SERVICE_URL + "/state", { json: true }, (err, r, body) => {
       if (err) {
         res.status(500).send(err)
@@ -26,7 +22,7 @@ app.get('/state', (req, res) => {
     });
 })
 
-app.post('/shootDemon', (req, res) => {
+app.post('/api/shootDemon', (req, res) => {
     console.log(req.body)
     request.post(process.env.DOOM_ENGINE_SERVICE_URL + "/shootDemon", { json: true, body: req.body }, (err, r, body) => {
       if (err) {
