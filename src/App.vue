@@ -40,7 +40,7 @@
         methods: {
 
             killDemon: function(demonId) {
-                if (this.player.shotgunAmmo > 0) {
+                // if (this.player.shotgunAmmo > 0) {
                     axios.post("/api/shootDemon", {
                         demonId: demonId,
                         weapon: 'shotgun'
@@ -51,16 +51,16 @@
                     .catch((error) => {
                         console.error(error)
                     })
-                } else {
-                    alert("Mission Failed!")
-                }
+                // } else {
+                //     alert("Mission Failed!")
+                // }
             },
 
             loadData: function() {
                 axios.get("/api/state").then(response => {
                     const data = response.data
                     this.player = data.player
-                    this.demons = data.demons
+                    this.demons = (data.demons)
                 })
             }
         },
@@ -88,12 +88,17 @@
     body {
         background: transparent url("./assets/background.jpg") no-repeat top center;
         background-size: cover;
-
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
         margin: 0;
     }
 
     .demons {
-        padding-top: 15%;
+        padding-top: 10%;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
